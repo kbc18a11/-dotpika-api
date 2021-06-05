@@ -7,7 +7,7 @@ npm run start:dev
 ## Docker-compose
 ### ローカル
 ```
-docker-compose --env-file ./env/development.env
+docker-compose --env-file ./env/development.env up
 ```
 
 ## ローカルのマイグレーション
