@@ -71,7 +71,7 @@
         "@server": [
           "src/Server"
         ]
-      },
+      }
     },
     "include": [
       "src/**/*.ts",
