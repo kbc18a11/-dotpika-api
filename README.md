@@ -1,7 +1,21 @@
-# Awesome Project Build with TypeORM
+# dotpika-api
 
-Steps to run this project:
+## ローカル起動
 
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+```
+npm run start:dev
+```
+
+## Docker-compose
+
+### ローカル
+
+```
+docker-compose --env-file ./env/development.env up
+```
+
+## ローカルのマイグレーション
+
+```
+npx ts-node node_modules/.bin/typeorm migration:run
+```
