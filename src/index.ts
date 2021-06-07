@@ -1,4 +1,6 @@
 import './preStart'; // Must be the first import
+import "reflect-metadata";
+import { createConnection } from "typeorm";
 import app from '@server';
 import logger from '@shared/Logger';
 

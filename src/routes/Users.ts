@@ -1,11 +1,9 @@
 import StatusCodes from 'http-status-codes';
 import { Request, Response, Router } from 'express';
 
-import UserDao from '@daos/User/UserDao.mock';
 import { paramMissingError, IRequest } from '@shared/constants';
 
 const router = Router();
-const userDao = new UserDao();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
 
@@ -15,8 +13,6 @@ const { BAD_REQUEST, CREATED, OK } = StatusCodes;
  ******************************************************************************/
 
 router.get('/all', async (req: Request, res: Response) => {
-    const users = await userDao.getAll();
-    return res.status(OK).json({users});
 });
 
 
@@ -26,14 +22,7 @@ router.get('/all', async (req: Request, res: Response) => {
  ******************************************************************************/
 
 router.post('/add', async (req: IRequest, res: Response) => {
-    const { user } = req.body;
-    if (!user) {
-        return res.status(BAD_REQUEST).json({
-            error: paramMissingError,
-        });
-    }
-    await userDao.add(user);
-    return res.status(CREATED).end();
+
 });
 
 
@@ -43,15 +32,6 @@ router.post('/add', async (req: IRequest, res: Response) => {
  ******************************************************************************/
 
 router.put('/update', async (req: IRequest, res: Response) => {
-    const { user } = req.body;
-    if (!user) {
-        return res.status(BAD_REQUEST).json({
-            error: paramMissingError,
-        });
-    }
-    user.id = Number(user.id);
-    await userDao.update(user);
-    return res.status(OK).end();
 });
 
 
@@ -61,9 +41,6 @@ router.put('/update', async (req: IRequest, res: Response) => {
  ******************************************************************************/
 
 router.delete('/delete/:id', async (req: IRequest, res: Response) => {
-    const { id } = req.params;
-    await userDao.delete(Number(id));
-    return res.status(OK).end();
 });
 
 
