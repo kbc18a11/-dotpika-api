@@ -8,6 +8,9 @@ export class TemplatePixelArt {
   @Column('varchar', { length: 20, comment: 'ドット絵の名前', unique: true })
   name: string;
 
+  @Column('varchar', { length: 1500, comment: 'ドット絵の名前', unique: true })
+  exampleImage: string;
+
   @CreateDateColumn({ comment: '作成日時' })
   createdAt: Date;
 
