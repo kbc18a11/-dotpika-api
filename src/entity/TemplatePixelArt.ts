@@ -5,7 +5,7 @@ export class TemplatePixelArt {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('varchar', { length: 20, comment: 'ドット絵の名前' })
+  @Column('varchar', { length: 20, comment: 'ドット絵の名前', unique: true })
   name: string;
 
   @CreateDateColumn({ comment: '作成日時' })
