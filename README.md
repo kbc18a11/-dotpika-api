@@ -19,3 +19,7 @@ docker-compose --env-file ./env/development.env up
 ```
 npx ts-node node_modules/.bin/typeorm migration:run
 ```
+## マイグレーションファイル作成
+```
+npx ts-node node_modules/.bin/typeorm migration:generate -n ファイル名
+```
