@@ -15,10 +15,6 @@ docker-compose --env-file ./env/development.env up
 ```
 
 ## ローカルのマイグレーション
-
-```
-npx ts-node node_modules/.bin/typeorm migration:run
-```
 ```
 docker exec -it db bash
 
