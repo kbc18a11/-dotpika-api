@@ -22,6 +22,8 @@ cd sql/table
 
 mysql -u root -p
 
+use dotpika
+
 source 展開したいテーブルのsqlファイル
 ```
 ## マイグレーションファイル作成
