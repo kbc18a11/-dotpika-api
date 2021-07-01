@@ -1,10 +1,8 @@
 interface Dot {
   x: number;
   y: number;
-  color: {
-    red: number,
-    green: number,
-    bule: number
-  };
+  red: number;
+  green: number;
+  blue: number;
 }
 export default Dot;
