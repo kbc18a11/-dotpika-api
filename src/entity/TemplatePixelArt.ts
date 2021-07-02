@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn } from 'typeorm';
+import {Row} from './Row';
 
 @Entity()
 export class TemplatePixelArt {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: number;
 
   @Column('varchar', { length: 20, comment: 'ドット絵の名前', unique: true })
   name: string;
@@ -16,4 +17,7 @@ export class TemplatePixelArt {
 
   @UpdateDateColumn({ comment: '更新日時' })
   updatedAt: Date;
+
+  @OneToMany(() => Row, row => row.templatePixelArtId)
+  rows:Row[];
 }
