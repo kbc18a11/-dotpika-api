@@ -15,9 +15,16 @@ docker-compose --env-file ./env/development.env up
 ```
 
 ## ローカルのマイグレーション
-
 ```
-npx ts-node node_modules/.bin/typeorm migration:run
+docker exec -it db bash
+
+cd sql/table
+
+mysql -u root -p
+
+use dotpika
+
+source 展開したいテーブルのsqlファイル
 ```
 ## マイグレーションファイル作成
 ```
