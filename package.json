@@ -74,6 +74,7 @@
       "mysql": "^2.14.1",
       "obniz": "^3.16.0",
       "reflect-metadata": "^0.1.10",
+      "serialport": "^9.2.0",
       "typeorm": "0.2.34"
    },
    "devDependencies": {
