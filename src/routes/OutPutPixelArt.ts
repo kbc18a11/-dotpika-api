@@ -11,7 +11,7 @@ const router = Router();
  */
 router.post('/', async (req: Request, res: Response) => {
   // 送られてきたドット絵のデータを16進数に変換
-  const uartData = PixelArtConversionUartData(req.body.dots);
+  const uartData = PixelArtConversionUartData(req.body.Dots);
   return res.json(uartData);
 
   let obniz: Obniz | null;

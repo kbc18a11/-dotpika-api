@@ -12,5 +12,6 @@ services:
     volumes:
       - ./db/data:/var/lib/mysql
       - ./my.cnf:/etc/my.cnf
+      - ./sql:/sql
     ports:
       - 3306:3306

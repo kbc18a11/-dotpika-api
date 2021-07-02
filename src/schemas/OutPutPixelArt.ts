@@ -3,7 +3,7 @@ import Dot from '../types/Dot';
 
 interface OutPutPixelArt extends Request {
   body: {
-    dots: Dot[][];
+    Dots: Dot[][];
   }
 }
 
