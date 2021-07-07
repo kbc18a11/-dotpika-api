@@ -11,8 +11,7 @@ const router = Router();
  */
 router.post('/', async (req: Request, res: Response) => {
   // 送られてきたドット絵のデータを16進数に変換
-  const uartData = PixelArtConversionUartData(req.body.Dots);
-  return res.json(uartData);
+  //const uartData = PixelArtConversionUartData(req.body.Dots);
 
   let obniz: Obniz | null;
 
@@ -25,11 +24,6 @@ router.post('/', async (req: Request, res: Response) => {
   const uart = obniz.getFreeUart();
   try {
     uart.start({ gnd: 0, rx: 2, tx: 3, baud: 115200 });
-    uart.send([0x23, 0x57, 0x4C, 0x00, 0x00,
-      255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-      0x00
-    ]);
-
 
     uart.send([0x23, 0x57, 0x4C, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00]);
 
@@ -94,6 +88,10 @@ router.post('/usb', async (req: Request, res: Response) => {
   try {
     serialPort.on('open', function () {
       serialPort.write([0x23, 0x57, 0x4C, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00]);
+    });
+
+    serialPort.on('error', (e) => {
+      console.error(e);
     });
   } catch (e) {
     console.error(e);
