@@ -2,7 +2,7 @@ import { Response, Router } from 'express';
 import Request from '../schemas/OutPutPixelArt';
 import Obniz from 'obniz';
 import PixelArtConversionUartData from '@shared/PixelArtConversionUartData';
-import SerialPort from 'serialport';
+import { write } from '@shared/SerialPortLogics';
 
 const router = Router();
 
@@ -83,16 +83,20 @@ router.post('/rset', async (req: Request, res: Response) => {
  * USBから直接送る場合
  */
 router.post('/usb', async (req: Request, res: Response) => {
-  const serialPort = new SerialPort('/dev/ttyS3', { baudRate: 115200 });
+  const uartData = PixelArtConversionUartData(req.body.Dots);
+
+  let logData = '';
+
+  uartData.map((dot) => {
+    logData += `${dot},`
+  });
+
+  console.log(logData);
 
   try {
-    serialPort.on('open', function () {
-      serialPort.write([0x23, 0x57, 0x4C, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00]);
-    });
-
-    serialPort.on('error', (e) => {
-      console.error(e);
-    });
+    write(uartData);
+    //serialPort.open();
+    //serialPort.close((e) => { throw new Error(e); });
   } catch (e) {
     console.error(e);
 

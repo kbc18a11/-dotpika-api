@@ -60,6 +60,7 @@
    ],
    "dependencies": {
       "@types/mysql": "^2.15.18",
+      "@types/serialport": "^8.0.2",
       "body-parser": "^1.19.0",
       "command-line-args": "^5.1.1",
       "cookie-parser": "^1.4.5",
