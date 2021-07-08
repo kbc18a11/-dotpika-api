@@ -9,3 +9,4 @@ mysql
 env
 db
 dist
+development.env
