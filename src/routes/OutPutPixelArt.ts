@@ -23,7 +23,7 @@ router.post('/', async (req: Request, res: Response) => {
 
   const uart = obniz.getFreeUart();
   try {
-    uart.start({ gnd: 0, rx: 2, tx: 3, baud: 115200 });
+    uart.start({ gnd: 0, rx: 2, tx: 3, baud: 230400 });
 
     uart.send([0x23, 0x57, 0x4C, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00]);
 
@@ -60,7 +60,7 @@ router.post('/rset', async (req: Request, res: Response) => {
 
   const uart = obniz.getFreeUart();
   try {
-    uart.start({ gnd: 0, rx: 2, tx: 3, baud: 115200 });
+    uart.start({ gnd: 0, rx: 2, tx: 3, baud: 230400 });
 
     await uart.send([0x23, 0x53, 0x4C, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

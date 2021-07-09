@@ -1,6 +1,6 @@
 import SerialPort from 'serialport';
 
-const serialPort = new SerialPort('COM3', { baudRate: 115200 });
+const serialPort = new SerialPort('COM3', { baudRate: 230400 });
 
 /**
  * シリアルポートの動作用、コールバック関数
