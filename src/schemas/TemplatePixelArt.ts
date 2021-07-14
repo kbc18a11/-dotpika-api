@@ -5,7 +5,8 @@ interface TemplatePixelArt extends Request {
   body: {
     name: string;
     example_image: string;
-    Dots: Dot[][];
+    // 文字列化されたオブジェクト
+    Dots: string;
   }
 }
 
