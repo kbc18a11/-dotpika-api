@@ -10,3 +10,4 @@ env
 db
 dist
 development.env
+src/public/*

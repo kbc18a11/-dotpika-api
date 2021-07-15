@@ -26,33 +26,41 @@ const upload = multer({
 })
 
 router.get('/', async (req: Request, res: Response) => {
-
   try {
     let len = await (await mysql()).query('SELECT COUNT(*) FROM template_pixel_art');
     const ids = await (await mysql()).query(`SELECT id FROM template_pixel_art`);
     const names = await (await mysql()).query(`SELECT name FROM template_pixel_art`);
     const images = await (await mysql()).query(`SELECT example_image FROM template_pixel_art`)
+
+    if (!Number(len[0]['COUNT(*)'])) {
+      return res.status(404).json('テンプレートが存在しません');
+    }
+
     len = [...Array(len[0]['COUNT(*)']).keys()].map(i => ++i);
-    let pixelArts: PixelArt[] = new Array();
-    len.forEach(async (templatePixelArtId: number, index: number) => {
-      const pixels = await (await mysql()).query(`SELECT x, y, red, green, blue FROM template_pixel_art LEFT JOIN dot ON template_pixel_art.id = dot.template_pixel_art_id WHERE template_pixel_art.id = ${templatePixelArtId} ORDER BY dot.x, dot.y`)
-      let rows: Dot[][] = new Array();
-      for (let i = 0; i < 32; i++) {
+
+    const pixelArts: PixelArt[] = new Array();
+
+    for (let i = 0; i < len.length; i++) {
+      const pixels = await (await mysql())
+        .query(`SELECT x, y, red, green, blue FROM template_pixel_art LEFT JOIN dot ON template_pixel_art.id = dot.template_pixel_art_id WHERE template_pixel_art.id = ${len[i]} ORDER BY dot.x, dot.y`)
+      const rows: Dot[][] = new Array();
+      for (let j = 0; j < 32; j++) {
         rows.push(pixels.splice(0, 32))
       }
-      let pixelArt: PixelArt = {
-        id: ids[index]["id"],
-        name: names[index]["name"],
-        example_image: images[index]["example_image"],
+
+      const pixelArt: PixelArt = {
+        id: ids[i]["id"],
+        name: names[i]["name"],
+        example_image: images[i]["example_image"],
         dots: rows
       }
       pixelArts.push(pixelArt);
-      if (len.length - 1 == index) {
-        res.send(pixelArts);
-      }
-    })
+    }
+
+    return res.json(pixelArts);
   } catch (e) {
     console.error(e);
+    return res.status(500).json('');
   } finally {
     //切断処理
     await (await mysql()).end();
@@ -60,8 +68,6 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.post('/save', upload.single('example_image'), async (req: Request, res: Response) => {
-  //console.log(req.body.Dots[0][0]);
-
   // 文字列化されたドット情報をjson化
   const dotsData: Dot[][] = JSON.parse(req.body.Dots);
 
@@ -85,11 +91,11 @@ router.post('/save', upload.single('example_image'), async (req: Request, res: R
       return res.json(result);
     }
 
-    res.json(template_pixel_art);
+    return res.json(template_pixel_art);
   } catch (e) {
     console.error(e);
 
-    res.status(500).json(e);
+    return res.status(500).json(e);
   } finally {
     await (await mysql()).end();
   }
