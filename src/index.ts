@@ -8,7 +8,5 @@ import logger from '@shared/Logger';
 const port = 5000;
 
 app.listen(port, () => {
-    console.log(process.env.AWS_ACCESSKEYID);
-
     logger.info('Express server started on port: ' + port);
 });
