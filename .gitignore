@@ -6,8 +6,6 @@ tmp/
 temp/
 ormconfig.json
 mysql
-env
 db
 dist
-development.env
 src/public/*
